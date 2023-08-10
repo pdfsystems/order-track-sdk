@@ -5,6 +5,7 @@ namespace Pdfsystems\OrderTrackSdk;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
+use Pdfsystems\OrderTrackSdk\Repositories\ProductsRepository;
 use Rpungello\SdkClient\SdkClient;
 
 class OrderTrackClient extends SdkClient
@@ -30,5 +31,10 @@ class OrderTrackClient extends SdkClient
     public function getAccount(): User
     {
         return $this->getDto('api/user', User::class);
+    }
+
+    public function products(): ProductsRepository
+    {
+        return new ProductsRepository($this);
     }
 }
