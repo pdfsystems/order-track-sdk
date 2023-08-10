@@ -3,7 +3,6 @@
 namespace Pdfsystems\OrderTrackSdk\Repositories;
 
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\SampleOrderList;
-use Pdfsystems\OrderTrackSdk\Repositories\Repository;
 
 class SampleOrdersRepository extends Repository
 {
