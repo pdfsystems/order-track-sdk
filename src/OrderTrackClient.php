@@ -2,7 +2,9 @@
 
 namespace Pdfsystems\OrderTrackSdk;
 
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
+use Pdfsystems\OrderTrackSdk\Dtos\User;
 use Rpungello\SdkClient\SdkClient;
 
 class OrderTrackClient extends SdkClient
@@ -16,7 +18,17 @@ class OrderTrackClient extends SdkClient
     {
         $config = parent::getGuzzleClientConfig();
         $config['headers']['authorization'] = "Bearer $this->authToken";
+        $config['headers']['accept'] = 'application/json';
 
         return $config;
+    }
+
+    /**
+     * @return User
+     * @throws GuzzleException
+     */
+    public function getAccount(): User
+    {
+        return $this->getDto('api/user', User::class);
     }
 }
