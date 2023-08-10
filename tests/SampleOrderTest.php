@@ -21,6 +21,10 @@ it('can search for sample orders', function () {
                 'order_number' => 123456,
                 'items' => [
                 ],
+                'usage_type' => [
+                    'id' => 1,
+                    'name' => 'Project',
+                ],
             ],
         ],
         'first_page_url' => 'https://example.com/page/1',
