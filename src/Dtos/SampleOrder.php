@@ -32,6 +32,7 @@ class SampleOrder extends DataTransferObject
     public ?string $customer_phone;
     public ?string $sidemark;
     public ?string $comment;
+    public SampleUsage $usage_type;
     public bool $rush_order = false;
     public ?string $shipper_number;
     public ?string $ship_to_name;
