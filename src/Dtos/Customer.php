@@ -2,10 +2,9 @@
 
 namespace Pdfsystems\OrderTrackSdk\Dtos;
 
+use Carbon\Carbon;
 use DateTimeImmutable;
-use Rpungello\SdkClient\Casters\DateTimeCaster;
-use Spatie\DataTransferObject\Attributes\CastWith;
-use Spatie\DataTransferObject\DataTransferObject;
+use Rpungello\SdkClient\DataTransferObject;
 
 class Customer extends DataTransferObject
 {
@@ -26,7 +25,6 @@ class Customer extends DataTransferObject
     public ?string $rep_code;
     public ?string $master_rep_code;
     public ?string $sub_rep_code;
-    #[CastWith(DateTimeCaster::class)]
     public ?DateTimeImmutable $date_last_sale;
     public float $sales_year_to_date = 0;
     public float $sales_previous_year = 0;
@@ -34,6 +32,5 @@ class Customer extends DataTransferObject
     public float $discount_percent = 0;
     public ?float $latitude;
     public ?float $longitude;
-    #[CastWith(DateTimeCaster::class)]
-    public ?DateTimeImmutable $created_at;
+    public ?Carbon $created_at;
 }

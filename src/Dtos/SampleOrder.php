@@ -3,16 +3,14 @@
 namespace Pdfsystems\OrderTrackSdk\Dtos;
 
 use DateTimeImmutable;
-use Rpungello\SdkClient\Casters\DateTimeCaster;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
-use Spatie\DataTransferObject\DataTransferObject;
+use Rpungello\SdkClient\DataTransferObject;
 
 class SampleOrder extends DataTransferObject
 {
     public ?int $id;
     public ?int $order_number;
-    #[CastWith(DateTimeCaster::class)]
     public ?DateTimeImmutable $date_ordered;
     public ?string $web_order_number;
     public ?string $web_order_id;

@@ -2,7 +2,7 @@
 
 namespace Pdfsystems\OrderTrackSdk\Dtos;
 
-use Spatie\DataTransferObject\DataTransferObject;
+use Rpungello\SdkClient\DataTransferObject;
 
 class User extends DataTransferObject
 {

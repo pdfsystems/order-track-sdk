@@ -3,9 +3,7 @@
 namespace Pdfsystems\OrderTrackSdk\Dtos;
 
 use DateTimeImmutable;
-use Rpungello\SdkClient\Casters\DateTimeCaster;
-use Spatie\DataTransferObject\Attributes\CastWith;
-use Spatie\DataTransferObject\DataTransferObject;
+use Rpungello\SdkClient\DataTransferObject;
 
 class Product extends DataTransferObject
 {
@@ -13,7 +11,6 @@ class Product extends DataTransferObject
     public string $item_number;
     public string $style_name;
     public ?string $color_name;
-    #[CastWith(DateTimeCaster::class)]
     public ?DateTimeImmutable $date_introduced;
     public ?string $product_category;
     public ?string $primary_color;
@@ -41,6 +38,5 @@ class Product extends DataTransferObject
     public ?string $web_comment;
     public ?string $image_url;
     public ?string $discontinued_reason;
-    #[CastWith(DateTimeCaster::class)]
     public ?DateTimeImmutable $discontinued_date;
 }
