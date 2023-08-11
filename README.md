@@ -6,7 +6,20 @@ This is where your description should go. Try and limit it to a paragraph or two
 
 ## Installation
 
-You can install the package via composer:
+You can install the package via composer, but first you need to add PDF's composer repository to your composer.json file:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://satis.pdfsystems.com"
+        }
+    ]
+}
+```
+
+Then you can install the package:
 
 ```bash
 composer require pdf-systems-inc/order-track-sdk
