@@ -113,4 +113,3 @@ it('throws an exception loading nonexisting order number', function () {
     $client = new OrderTrackClient('test', 'https://example.com', HandlerStack::create($mock));
     $client->orders()->findByOrderNumber(1, 'FAKE');
 })->throws(NotFoundException::class);
-
