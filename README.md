@@ -16,9 +16,83 @@ composer require pdf-systems-inc/order-track-sdk
 
 ## Usage
 
+### Creating a Client
+
 ```php
-$skeleton = new Pdfsystems\OrderTrackSdk();
-echo $skeleton->echoPhrase('Hello, Pdfsystems!');
+$client = new Pdfsystems\OrderTrackSdk\OrderTrackClient('{Auth Token}', '{Team ID}');
+```
+
+### Customers
+
+#### Searching for Customers
+```php
+$client->customers()->search(params: [
+    'customer_number' => '123456',
+    'name' => 'John Doe',    
+]);
+````
+#### Loading a Specific Customer
+```php
+$client->customers()->findByCustomerNumber('123456');
+```
+
+### Products
+
+#### Searching for Products
+```php
+$client->products()->search(params: [
+    'item_number' => '1000-01',
+    'style_name' => 'Kensington',
+    'color_name' => 'Red',
+    'discontinued' => 'false',    
+]);
+```
+#### Loading a Specific Product
+```php
+$client->products()->findByItemNumber('1000-01');
+```
+
+### Orders
+
+#### Searching for Orders
+```php
+$client->orders()->search(params: [
+    'customer' => 123456,
+    'customer_number' => 'A1234',
+    'start_date' => '2023-01-01',
+    'end_date' => '2023-12-31',    
+]);
+```
+#### Loading a Specific Order
+```php
+$client->orders()->findByOrderNumber('100000-0');
+```
+
+### Sample Orders
+
+#### Searching for Sample Orders
+```php
+$client->sampleOrders()->search(params: [
+    'shippable_items' => ['1000-01', '1000-02'],
+    'start_date' => '2023-01-01',
+    'end_date' => '2023-12-31',    
+]);
+```
+
+#### Creating a Sample Order
+```php
+$sampleOrder = new Pdfsystems\OrderTrackSdk\Dtos\SampleOrder([
+    'customer_id' => 1,
+    'items' => [
+        [
+            'item_number' => '1000-01',
+            'quantity_ordered' => 1,
+        ],    
+    ],
+    'sample_usage_type_id' => 1,
+    'sample_order_source_id' => 1,
+]);
+$client->sampleOrders()->create($sampleOrder);
 ```
 
 ## Testing

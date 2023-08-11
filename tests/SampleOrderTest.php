@@ -58,10 +58,6 @@ it('can create sample orders', function () {
         ],
         'sample_usage_type_id' => 1,
         'sample_order_source_id' => 1,
-        'usage_type' => [
-            'id' => 1,
-            'name' => 'Project',
-        ],
     ];
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
