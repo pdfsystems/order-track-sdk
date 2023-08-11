@@ -13,7 +13,7 @@ use Rpungello\SdkClient\SdkClient;
 
 class OrderTrackClient extends SdkClient
 {
-    public function __construct(public string $authToken, string $baseUri = 'https://order-track.com', public ?int $teamId = null, HandlerStack $handler = null)
+    public function __construct(public string $authToken, public ?int $teamId = null, string $baseUri = 'https://order-track.com', HandlerStack $handler = null)
     {
         parent::__construct($baseUri, $handler);
     }

@@ -19,7 +19,7 @@ it('can load user accounts', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $account = $client->getAccount();
     expect($account)->toBeInstanceOf(User::class);
     expect($account->id)->toBe(1);

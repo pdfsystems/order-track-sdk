@@ -9,7 +9,7 @@ use Pdfsystems\OrderTrackSdk\OrderTrackClient;
 use Pdfsystems\OrderTrackSdk\Repositories\SampleOrdersRepository;
 
 it('can create sample order repositories', function () {
-    $client = new OrderTrackClient('test', 'https://example.com');
+    $client = new OrderTrackClient('test');
     expect($client->sampleOrders())->toBeInstanceOf(SampleOrdersRepository::class);
 });
 
@@ -46,7 +46,7 @@ it('can search for sample orders', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $products = $client->sampleOrders()->search();
     expect($products)->toBeInstanceOf(SampleOrderList::class);
     expect($products->data)->toHaveCount(1);
@@ -66,7 +66,7 @@ it('can create sample orders', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $products = $client->sampleOrders()->create(new SampleOrder($data));
     expect($products)->toBeInstanceOf(SampleOrder::class);
 });

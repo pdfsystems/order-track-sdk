@@ -10,7 +10,7 @@ use Pdfsystems\OrderTrackSdk\OrderTrackClient;
 use Pdfsystems\OrderTrackSdk\Repositories\ProductsRepository;
 
 it('can create product repositories', function () {
-    $client = new OrderTrackClient('test', 'https://example.com');
+    $client = new OrderTrackClient('test');
     expect($client->products())->toBeInstanceOf(ProductsRepository::class);
 });
 
@@ -41,7 +41,7 @@ it('can search for products', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $products = $client->products()->search();
     expect($products)->toBeInstanceOf(ProductList::class);
     expect($products->data)->toHaveCount(1);
@@ -77,7 +77,7 @@ it('can load individual products by item number', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $product = $client->products()->findByItemNumber('1000-01');
     expect($product)->toBeInstanceOf(Product::class);
     expect($product->id)->toBe(1);
@@ -105,6 +105,6 @@ it('throws an exception loading nonexisting item number', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $client->products()->findByItemNumber('1000-01F');
 })->throws(NotFoundException::class);
