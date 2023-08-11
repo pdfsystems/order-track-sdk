@@ -43,8 +43,8 @@ it('can search for sample orders', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', 'https://example.com', HandlerStack::create($mock));
-    $products = $client->sampleOrders()->search(1);
+    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $products = $client->sampleOrders()->search();
     expect($products)->toBeInstanceOf(SampleOrderList::class);
     expect($products->data)->toHaveCount(1);
 });

@@ -40,8 +40,8 @@ it('can search for customers', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', 'https://example.com', HandlerStack::create($mock));
-    $customers = $client->customers()->search(1);
+    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $customers = $client->customers()->search();
     expect($customers)->toBeInstanceOf(CustomerList::class);
     expect($customers->data)->toHaveCount(1);
     expect($customers->data[0]->id)->toBe(1);
@@ -75,8 +75,8 @@ it('can load individual customers by customer number', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', 'https://example.com', HandlerStack::create($mock));
-    $customer = $client->customers()->findByCustomerNumber(1, '1234');
+    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $customer = $client->customers()->findByCustomerNumber('1234');
     expect($customer)->toBeInstanceOf(Customer::class);
     expect($customer->id)->toBe(1);
     expect($customer->customer_number)->toBe('1234');
@@ -103,6 +103,6 @@ it('throws an exception loading nonexisting customer number', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', 'https://example.com', HandlerStack::create($mock));
-    $client->customers()->findByCustomerNumber(1, 'FAKE');
+    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $client->customers()->findByCustomerNumber('FAKE');
 })->throws(NotFoundException::class);

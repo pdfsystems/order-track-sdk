@@ -13,7 +13,7 @@ use Rpungello\SdkClient\SdkClient;
 
 class OrderTrackClient extends SdkClient
 {
-    public function __construct(public string $authToken, string $baseUri = 'https://order-track.com', HandlerStack $handler = null)
+    public function __construct(public string $authToken, string $baseUri = 'https://order-track.com', public ?int $teamId = null, HandlerStack $handler = null)
     {
         parent::__construct($baseUri, $handler);
     }
@@ -23,6 +23,10 @@ class OrderTrackClient extends SdkClient
         $config = parent::getGuzzleClientConfig();
         $config['headers']['authorization'] = "Bearer $this->authToken";
         $config['headers']['accept'] = 'application/json';
+
+        if (! empty($this->teamId)) {
+            $config['headers']['x-team-id'] = $this->teamId;
+        }
 
         return $config;
     }

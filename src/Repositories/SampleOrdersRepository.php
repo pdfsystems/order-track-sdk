@@ -2,14 +2,23 @@
 
 namespace Pdfsystems\OrderTrackSdk\Repositories;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\SampleOrderList;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class SampleOrdersRepository extends Repository
 {
-    public function search(int $teamId, int $perPage = 15, int $page = 1, array $params = []): SampleOrderList
+    /**
+     * @param int $perPage
+     * @param int $page
+     * @param array $params
+     * @return SampleOrderList
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function search(int $perPage = 15, int $page = 1, array $params = []): SampleOrderList
     {
         return $this->client->getDto('api/sample-orders', SampleOrderList::class, array_merge($params, [
-            'team' => $teamId,
             'count' => $perPage,
             'page' => $page,
         ]));
