@@ -3,9 +3,9 @@
 namespace Pdfsystems\OrderTrackSdk\Dtos;
 
 use DateTimeImmutable;
+use Rpungello\SdkClient\DataTransferObject;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
-use Rpungello\SdkClient\DataTransferObject;
 
 class SampleOrder extends DataTransferObject
 {
