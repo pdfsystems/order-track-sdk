@@ -8,6 +8,7 @@ use Rpungello\SdkClient\DataTransferObject;
 class SampleOrderItem extends DataTransferObject
 {
     public ?int $id;
+    public ?int $product_id;
     public string $item_number;
     public ?string $style_name;
     public ?string $color_name;
