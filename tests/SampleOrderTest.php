@@ -4,6 +4,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\SampleOrderList;
+use Pdfsystems\OrderTrackSdk\Dtos\SampleOrder;
 use Pdfsystems\OrderTrackSdk\OrderTrackClient;
 use Pdfsystems\OrderTrackSdk\Repositories\SampleOrdersRepository;
 
@@ -21,6 +22,8 @@ it('can search for sample orders', function () {
                 'order_number' => 123456,
                 'items' => [
                 ],
+                'sample_usage_type_id' => 1,
+                'sample_order_source_id' => 1,
                 'usage_type' => [
                     'id' => 1,
                     'name' => 'Project',
@@ -47,4 +50,23 @@ it('can search for sample orders', function () {
     $products = $client->sampleOrders()->search();
     expect($products)->toBeInstanceOf(SampleOrderList::class);
     expect($products->data)->toHaveCount(1);
+});
+
+it('can create sample orders', function () {
+    $data = [
+        'items' => [
+        ],
+        'sample_usage_type_id' => 1,
+        'sample_order_source_id' => 1,
+        'usage_type' => [
+            'id' => 1,
+            'name' => 'Project',
+        ],
+    ];
+    $mock = new MockHandler([
+        new Response(200, ['content-type' => 'application/json'], json_encode($data)),
+    ]);
+    $client = new OrderTrackClient('test', 'https://example.com', handler: HandlerStack::create($mock));
+    $products = $client->sampleOrders()->create(new SampleOrder($data));
+    expect($products)->toBeInstanceOf(SampleOrder::class);
 });

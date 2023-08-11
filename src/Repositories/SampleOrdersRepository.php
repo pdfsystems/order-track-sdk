@@ -4,6 +4,7 @@ namespace Pdfsystems\OrderTrackSdk\Repositories;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\SampleOrderList;
+use Pdfsystems\OrderTrackSdk\Dtos\SampleOrder;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class SampleOrdersRepository extends Repository
@@ -22,5 +23,16 @@ class SampleOrdersRepository extends Repository
             'count' => $perPage,
             'page' => $page,
         ]));
+    }
+
+    /**
+     * @param SampleOrder $order
+     * @return SampleOrder
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function create(SampleOrder $order): SampleOrder
+    {
+        return $this->client->postDto('api/sample-orders', $order);
     }
 }

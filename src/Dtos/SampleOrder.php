@@ -18,6 +18,7 @@ class SampleOrder extends DataTransferObject
     public bool $replenishment = false;
     public bool $entered_by_distributor = false;
     public bool $fulfilled_by_rep = false;
+    public ?int $customer_id;
     public ?Customer $customer;
     public ?string $customer_name;
     public ?string $customer_street;
@@ -31,7 +32,9 @@ class SampleOrder extends DataTransferObject
     public ?string $customer_phone;
     public ?string $sidemark;
     public ?string $comment;
-    public SampleUsage $usage_type;
+    public int $sample_usage_type_id;
+    public ?SampleUsage $usage_type;
+    public int $sample_order_source_id;
     public bool $rush_order = false;
     public ?string $shipper_number;
     public ?string $ship_to_name;

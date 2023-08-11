@@ -13,7 +13,8 @@ class SampleOrderItem extends DataTransferObject
     public ?string $style_name;
     public ?string $color_name;
     public string $status = 'open';
-    public SampleType $sample_type;
+    public ?int $sample_type_id;
+    public ?SampleType $sample_type;
     public int $quantity_ordered = 0;
     public int $quantity_shipped = 0;
     public ?DateTimeImmutable $date_pick_ticketed;
