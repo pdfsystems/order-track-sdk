@@ -3,26 +3,25 @@
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use Pdfsystems\OrderTrackSdk\Dtos\Pagination\ProductList;
-use Pdfsystems\OrderTrackSdk\Dtos\Product;
+use Pdfsystems\OrderTrackSdk\Dtos\Customer;
+use Pdfsystems\OrderTrackSdk\Dtos\Pagination\CustomerList;
 use Pdfsystems\OrderTrackSdk\Exceptions\NotFoundException;
 use Pdfsystems\OrderTrackSdk\OrderTrackClient;
-use Pdfsystems\OrderTrackSdk\Repositories\ProductsRepository;
+use Pdfsystems\OrderTrackSdk\Repositories\CustomersRepository;
 
-it('can create product repositories', function () {
+it('can create customer repositories', function () {
     $client = new OrderTrackClient('test', 'https://example.com');
-    expect($client->products())->toBeInstanceOf(ProductsRepository::class);
+    expect($client->customers())->toBeInstanceOf(CustomersRepository::class);
 });
 
-it('can search for products', function () {
+it('can search for customers', function () {
     $data = [
         'current_page' => 1,
         'data' => [
             [
                 'id' => 1,
-                'item_number' => '1000-01',
-                'style_name' => 'Test Product',
-                'color_name' => 'Red',
+                'customer_number' => '1234',
+                'name' => 'John Doe',
             ],
         ],
         'first_page_url' => 'https://example.com/page/1',
@@ -42,23 +41,22 @@ it('can search for products', function () {
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
     $client = new OrderTrackClient('test', 'https://example.com', HandlerStack::create($mock));
-    $products = $client->products()->search(1);
-    expect($products)->toBeInstanceOf(ProductList::class);
-    expect($products->data)->toHaveCount(1);
-    expect($products->data[0]->id)->toBe(1);
-    expect($products->data[0]->style_name)->toBe('Test Product');
-    expect($products->data[0]->color_name)->toBe('Red');
+    $customers = $client->customers()->search(1);
+    expect($customers)->toBeInstanceOf(CustomerList::class);
+    expect($customers->data)->toHaveCount(1);
+    expect($customers->data[0]->id)->toBe(1);
+    expect($customers->data[0]->customer_number)->toBe('1234');
+    expect($customers->data[0]->name)->toBe('John Doe');
 });
 
-it('can load individual products by item number', function () {
+it('can load individual customers by customer number', function () {
     $data = [
         'current_page' => 1,
         'data' => [
             [
                 'id' => 1,
-                'item_number' => '1000-01',
-                'style_name' => 'Test Product',
-                'color_name' => 'Red',
+                'customer_number' => '1234',
+                'name' => 'John Doe',
             ],
         ],
         'first_page_url' => 'https://example.com/page/1',
@@ -78,14 +76,14 @@ it('can load individual products by item number', function () {
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
     $client = new OrderTrackClient('test', 'https://example.com', HandlerStack::create($mock));
-    $product = $client->products()->findByItemNumber(1, '1000-01');
-    expect($product)->toBeInstanceOf(Product::class);
-    expect($product->id)->toBe(1);
-    expect($product->style_name)->toBe('Test Product');
-    expect($product->color_name)->toBe('Red');
+    $customer = $client->customers()->findByCustomerNumber(1, '1234');
+    expect($customer)->toBeInstanceOf(Customer::class);
+    expect($customer->id)->toBe(1);
+    expect($customer->customer_number)->toBe('1234');
+    expect($customer->name)->toBe('John Doe');
 });
 
-it('throws an exception loading nonexisting item number', function () {
+it('throws an exception loading nonexisting customer number', function () {
     $data = [
         'current_page' => 1,
         'data' => [],
@@ -106,5 +104,5 @@ it('throws an exception loading nonexisting item number', function () {
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
     $client = new OrderTrackClient('test', 'https://example.com', HandlerStack::create($mock));
-    $client->products()->findByItemNumber(1, '1000-01F');
+    $client->customers()->findByCustomerNumber(1, 'FAKE');
 })->throws(NotFoundException::class);

@@ -20,6 +20,7 @@ class SampleOrder extends DataTransferObject
     public bool $replenishment = false;
     public bool $entered_by_distributor = false;
     public bool $fulfilled_by_rep = false;
+    public ?Customer $customer;
     public ?string $customer_name;
     public ?string $customer_street;
     public ?string $customer_street2;
