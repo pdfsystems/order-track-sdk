@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.2.0 - 2023-09-22
+
+Added shipping calculations
+
 ## 1.1.0 - 2023-08-11
 
 - Add ability to create sample orders
