@@ -32,14 +32,16 @@ class ProductsRepository extends Repository
      * Loads a distributor's product by its item number
      *
      * @param string $itemNumber
+     * @param int|null $teamId
      * @return Product
      * @throws GuzzleException
      * @throws UnknownProperties
      */
-    public function findByItemNumber(string $itemNumber): Product
+    public function findByItemNumber(string $itemNumber, int $teamId = null): Product
     {
         $results = $this->search(1, 1, [
             'item_number' => $itemNumber,
+            'team_id' => $teamId,
         ]);
 
         if ($results->total > 0) {
@@ -47,5 +49,22 @@ class ProductsRepository extends Repository
         } else {
             throw new NotFoundException("Product with item number $itemNumber not found");
         }
+    }
+
+    /**
+     * Calculates shipping charges for a given product
+     *
+     * @param Product $product
+     * @param string $postalCode
+     * @param int $quantity
+     * @return array
+     * @throws GuzzleException
+     */
+    public function calculateShipping(Product $product, string $postalCode, int $quantity = 1): array
+    {
+        return $this->client->getJson('/api/products/' . $product->id . '/shipping', [
+            'quantity' => $quantity,
+            'postal_code' => $postalCode,
+        ]);
     }
 }
