@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.3.0 - 2023-11-06
+
+Added companies
+
 ## 1.2.0 - 2023-09-22
 
 Added shipping calculations
