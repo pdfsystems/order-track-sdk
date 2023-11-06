@@ -5,6 +5,7 @@ namespace Pdfsystems\OrderTrackSdk;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
+use Pdfsystems\OrderTrackSdk\Repositories\CompaniesRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\CustomersRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\OrdersRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\ProductsRepository;
@@ -58,5 +59,10 @@ class OrderTrackClient extends SdkClient
     public function sampleOrders(): SampleOrdersRepository
     {
         return new SampleOrdersRepository($this);
+    }
+
+    public function companies(): CompaniesRepository
+    {
+        return new CompaniesRepository($this);
     }
 }
