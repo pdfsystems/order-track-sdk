@@ -3,6 +3,8 @@
 namespace Pdfsystems\OrderTrackSdk\Dtos;
 
 use Rpungello\SdkClient\DataTransferObject;
+use Spatie\DataTransferObject\Attributes\CastWith;
+use Spatie\DataTransferObject\Casters\ArrayCaster;
 
 class Company extends DataTransferObject
 {
@@ -20,4 +22,6 @@ class Company extends DataTransferObject
     public ?int $prefix;
     public ?int $next_sample_order_number;
     public ?string $shipping_class;
+    #[CastWith(ArrayCaster::class, itemType: Service::class)]
+    public array $services = [];
 }
