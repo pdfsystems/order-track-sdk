@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.3.1 - 2023-11-06
+
+Add ability to create services with companies
+
 ## 1.3.0 - 2023-11-06
 
 Added companies
