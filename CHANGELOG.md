@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.3.2 - 2023-12-04
+
+Handle new freight response format
+
 ## 1.3.1 - 2023-11-06
 
 Add ability to create services with companies
