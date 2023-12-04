@@ -62,9 +62,16 @@ class ProductsRepository extends Repository
      */
     public function calculateShipping(Product $product, string $postalCode, int $quantity = 1): array
     {
-        return $this->client->getJson('/api/products/' . $product->id . '/shipping', [
+        $response = [];
+        $otResponse = $this->client->getJson('/api/products/' . $product->id . '/shipping', [
             'quantity' => $quantity,
             'postal_code' => $postalCode,
         ]);
+
+        foreach($otResponse as $rate) {
+            $response[$rate['serviceName']] = $rate['rate'];
+        }
+
+        return $response;
     }
 }
