@@ -38,3 +38,21 @@ it('can create companies with services', function () {
     expect($company->services[0]->data)->toBeArray();
     expect($company->services[0]->data['foo'])->toBe('bar');
 });
+
+it('can load representation info', function () {
+    $data = [[
+        'rep_id' => 123,
+        'distributor_id' => 456,
+        'rep_code' => 'ABC',
+    ]];
+    $mock = new MockHandler([
+        new Response(200, ['content-type' => 'application/json'], json_encode($data)),
+    ]);
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $representation = $client->companies()->representation();
+    expect($representation)->toBeArray()
+        ->and($representation)->toHaveCount(1)
+        ->and($representation[0]->rep_id)->toBe(123)
+        ->and($representation[0]->distributor_id)->toBe(456)
+        ->and($representation[0]->rep_code)->toBe('ABC');
+});
