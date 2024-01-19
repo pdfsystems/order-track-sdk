@@ -21,4 +21,6 @@ class User extends DataTransferObject
     public bool $email_sample_orders = false;
 
     public bool $allow_direct_sample_types = false;
+
+    public ?Membership $membership = null;
 }
