@@ -2,6 +2,11 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.5.0 - 2024-01-19
+
+- Load membership info with users
+- Add ability to load representation
+
 ## 1.4.1 - 2024-01-19
 
 Add update filter when loading users
