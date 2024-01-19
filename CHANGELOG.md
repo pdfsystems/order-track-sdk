@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.4.0 - 2024-01-19
+
+Added ability to load all users with access to data entered by the authenticated user
+
 ## 1.3.2 - 2023-12-04
 
 Handle new freight response format
