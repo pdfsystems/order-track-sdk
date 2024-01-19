@@ -12,6 +12,8 @@ class User extends DataTransferObject
 
     public string $email;
 
+    public ?string $password = null;
+
     public bool $admin = false;
 
     public ?int $page_size;

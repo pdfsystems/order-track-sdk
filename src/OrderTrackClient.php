@@ -10,6 +10,7 @@ use Pdfsystems\OrderTrackSdk\Repositories\CustomersRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\OrdersRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\ProductsRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\SampleOrdersRepository;
+use Pdfsystems\OrderTrackSdk\Repositories\UsersRepository;
 use Rpungello\SdkClient\SdkClient;
 
 class OrderTrackClient extends SdkClient
@@ -64,5 +65,10 @@ class OrderTrackClient extends SdkClient
     public function companies(): CompaniesRepository
     {
         return new CompaniesRepository($this);
+    }
+
+    public function users(): UsersRepository
+    {
+        return new UsersRepository($this);
     }
 }
