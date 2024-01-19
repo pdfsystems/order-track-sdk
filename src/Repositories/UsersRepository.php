@@ -2,6 +2,7 @@
 
 namespace Pdfsystems\OrderTrackSdk\Repositories;
 
+use DateTimeInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
 
@@ -11,10 +12,16 @@ class UsersRepository extends Repository
      * @return User[]
      * @throws GuzzleException
      */
-    public function list(bool $includeReps = false): array
+    public function list(bool $includeReps = false, DateTimeInterface $lastUpdated = null): array
     {
-        return $this->client->getDtoArray('api/users', User::class, [
+        $query = [
             'include_reps' => $includeReps,
-        ]);
+        ];
+
+        if (! is_null($lastUpdated)) {
+            $query['updated_at'] = $lastUpdated->format('Y-m-d H:i:s');
+        }
+
+        return $this->client->getDtoArray('api/users', User::class, $query);
     }
 }
