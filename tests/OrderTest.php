@@ -47,8 +47,8 @@ it('can search for orders', function () {
     ]);
     $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $products = $client->orders()->search();
-    expect($products)->toBeInstanceOf(OrderList::class);
-    expect($products->data)->toHaveCount(1);
+    expect($products)->toBeInstanceOf(OrderList::class)
+        ->and($products->data)->toHaveCount(1);
 });
 
 it('can load individual orders by order number', function () {
@@ -82,12 +82,12 @@ it('can load individual orders by order number', function () {
     ]);
     $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $order = $client->orders()->findByOrderNumber('123456');
-    expect($order)->toBeInstanceOf(Order::class);
-    expect($order->id)->toBe(1);
-    expect($order->order_number)->toBe('123456');
-    expect($order->status)->toBe(OrderStatus::Open);
-    expect($order->type)->toBe(OrderType::Order);
-    expect($order->rep_code)->toBe('ABC');
+    expect($order)->toBeInstanceOf(Order::class)
+        ->and($order->id)->toBe(1)
+        ->and($order->order_number)->toBe('123456')
+        ->and($order->status)->toBe(OrderStatus::Open)
+        ->and($order->type)->toBe(OrderType::Order)
+        ->and($order->rep_code)->toBe('ABC');
 });
 
 it('throws an exception loading nonexisting order number', function () {

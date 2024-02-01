@@ -42,11 +42,11 @@ it('can search for customers', function () {
     ]);
     $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $customers = $client->customers()->search();
-    expect($customers)->toBeInstanceOf(CustomerList::class);
-    expect($customers->data)->toHaveCount(1);
-    expect($customers->data[0]->id)->toBe(1);
-    expect($customers->data[0]->customer_number)->toBe('1234');
-    expect($customers->data[0]->name)->toBe('John Doe');
+    expect($customers)->toBeInstanceOf(CustomerList::class)
+        ->and($customers->data)->toHaveCount(1)
+        ->and($customers->data[0]->id)->toBe(1)
+        ->and($customers->data[0]->customer_number)->toBe('1234')
+        ->and($customers->data[0]->name)->toBe('John Doe');
 });
 
 it('can load individual customers by customer number', function () {
@@ -77,10 +77,10 @@ it('can load individual customers by customer number', function () {
     ]);
     $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $customer = $client->customers()->findByCustomerNumber('1234');
-    expect($customer)->toBeInstanceOf(Customer::class);
-    expect($customer->id)->toBe(1);
-    expect($customer->customer_number)->toBe('1234');
-    expect($customer->name)->toBe('John Doe');
+    expect($customer)->toBeInstanceOf(Customer::class)
+        ->and($customer->id)->toBe(1)
+        ->and($customer->customer_number)->toBe('1234')
+        ->and($customer->name)->toBe('John Doe');
 });
 
 it('throws an exception loading nonexisting customer number', function () {

@@ -30,13 +30,13 @@ it('can create companies with services', function () {
     ]);
     $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $company = $client->companies()->create(new Company($data));
-    expect($company)->toBeInstanceOf(Company::class);
-    expect($company->name)->toBe('Test Company');
-    expect($company->services)->toBeArray();
-    expect($company->services)->toHaveCount(1);
-    expect($company->services[0]->service)->toBe('Test Service');
-    expect($company->services[0]->data)->toBeArray();
-    expect($company->services[0]->data['foo'])->toBe('bar');
+    expect($company)->toBeInstanceOf(Company::class)
+        ->and($company->name)->toBe('Test Company')
+        ->and($company->services)->toBeArray()
+        ->and($company->services)->toHaveCount(1)
+        ->and($company->services[0]->service)->toBe('Test Service')
+        ->and($company->services[0]->data)->toBeArray()
+        ->and($company->services[0]->data['foo'])->toBe('bar');
 });
 
 it('can load representation info', function () {

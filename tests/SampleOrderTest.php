@@ -48,8 +48,8 @@ it('can search for sample orders', function () {
     ]);
     $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $products = $client->sampleOrders()->search();
-    expect($products)->toBeInstanceOf(SampleOrderList::class);
-    expect($products->data)->toHaveCount(1);
+    expect($products)->toBeInstanceOf(SampleOrderList::class)
+        ->and($products->data)->toHaveCount(1);
 });
 
 it('can create sample orders', function () {

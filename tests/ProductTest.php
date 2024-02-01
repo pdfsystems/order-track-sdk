@@ -43,11 +43,11 @@ it('can search for products', function () {
     ]);
     $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $products = $client->products()->search();
-    expect($products)->toBeInstanceOf(ProductList::class);
-    expect($products->data)->toHaveCount(1);
-    expect($products->data[0]->id)->toBe(1);
-    expect($products->data[0]->style_name)->toBe('Test Product');
-    expect($products->data[0]->color_name)->toBe('Red');
+    expect($products)->toBeInstanceOf(ProductList::class)
+        ->and($products->data)->toHaveCount(1)
+        ->and($products->data[0]->id)->toBe(1)
+        ->and($products->data[0]->style_name)->toBe('Test Product')
+        ->and($products->data[0]->color_name)->toBe('Red');
 });
 
 it('can load individual products by item number', function () {
@@ -79,10 +79,10 @@ it('can load individual products by item number', function () {
     ]);
     $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $product = $client->products()->findByItemNumber('1000-01');
-    expect($product)->toBeInstanceOf(Product::class);
-    expect($product->id)->toBe(1);
-    expect($product->style_name)->toBe('Test Product');
-    expect($product->color_name)->toBe('Red');
+    expect($product)->toBeInstanceOf(Product::class)
+        ->and($product->id)->toBe(1)
+        ->and($product->style_name)->toBe('Test Product')
+        ->and($product->color_name)->toBe('Red');
 });
 
 it('throws an exception loading nonexisting item number', function () {
