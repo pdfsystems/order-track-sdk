@@ -21,7 +21,7 @@ class SampleOrdersRepository extends Repository
     public function search(
         int $perPage = 15,
         int $page = 1,
-        #[ArrayShape(['shippable_items' => 'string[]', 'start_date' => 'string', 'end_date' => 'string'])]
+        #[ArrayShape(['order_number' => 'string', 'customer' => 'int', 'customer_number' => 'string', 'shippable_items' => 'string[]', 'start_date' => 'string', 'end_date' => 'string'])]
         array $params = []
     ): SampleOrderList {
         return $this->client->getDto('api/sample-orders', SampleOrderList::class, array_merge($params, [
