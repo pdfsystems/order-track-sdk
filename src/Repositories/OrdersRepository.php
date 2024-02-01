@@ -22,7 +22,7 @@ class OrdersRepository extends Repository
     public function search(
         int $perPage = 15,
         int $page = 1,
-        #[ArrayShape(['customer' => 'int', 'customer_number' => 'string', ])]
+        #[ArrayShape(['customer' => 'int', 'customer_number' => 'string', 'order_number' => 'string'])]
         array $params = []
     ): OrderList {
         return $this->client->getDto('api/orders', OrderList::class, array_merge($params, [

@@ -5,12 +5,14 @@ namespace Pdfsystems\OrderTrackSdk\Repositories;
 use DateTimeInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class UsersRepository extends Repository
 {
     /**
      * @return User[]
      * @throws GuzzleException
+     * @throws UnknownProperties
      */
     public function list(bool $includeReps = false, DateTimeInterface $lastUpdated = null): array
     {
