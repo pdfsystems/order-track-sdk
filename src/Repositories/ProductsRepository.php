@@ -3,6 +3,7 @@
 namespace Pdfsystems\OrderTrackSdk\Repositories;
 
 use GuzzleHttp\Exception\GuzzleException;
+use JetBrains\PhpStorm\ArrayShape;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\ProductList;
 use Pdfsystems\OrderTrackSdk\Dtos\Product;
 use Pdfsystems\OrderTrackSdk\Exceptions\NotFoundException;
@@ -20,7 +21,12 @@ class ProductsRepository extends Repository
      * @throws GuzzleException
      * @throws UnknownProperties
      */
-    public function search(int $perPage = 15, int $page = 1, array $params = []): ProductList
+    public function search(
+        int $perPage = 15,
+        int $page = 1,
+        #[ArrayShape(['item_number' => 'string', 'style_name' => 'string', 'color_name' => 'string', 'discontinued' => 'bool'])]
+        array $params = []
+    ): ProductList
     {
         return $this->client->getDto('api/products', ProductList::class, array_merge($params, [
                 'count' => $perPage,

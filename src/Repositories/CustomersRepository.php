@@ -3,9 +3,11 @@
 namespace Pdfsystems\OrderTrackSdk\Repositories;
 
 use GuzzleHttp\Exception\GuzzleException;
+use JetBrains\PhpStorm\ArrayShape;
 use Pdfsystems\OrderTrackSdk\Dtos\Customer;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\CustomerList;
 use Pdfsystems\OrderTrackSdk\Exceptions\NotFoundException;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class CustomersRepository extends Repository
 {
@@ -17,8 +19,14 @@ class CustomersRepository extends Repository
      * @param array $params
      * @return CustomerList
      * @throws GuzzleException
+     * @throws UnknownProperties
      */
-    public function search(int $perPage = 15, int $page = 1, array $params = []): CustomerList
+    public function search(
+        int $perPage = 15,
+        int $page = 1,
+        #[ArrayShape(['customer_number' => 'string', 'name' => 'string'])]
+        array $params = []
+    ): CustomerList
     {
         return $this->client->getDto('api/customers', CustomerList::class, array_merge($params, [
                 'count' => $perPage,
@@ -32,6 +40,7 @@ class CustomersRepository extends Repository
      * @param string $customerNumber
      * @return Customer
      * @throws GuzzleException
+     * @throws UnknownProperties
      */
     public function findByCustomerNumber(string $customerNumber): Customer
     {
