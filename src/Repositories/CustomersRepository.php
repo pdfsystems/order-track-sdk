@@ -26,8 +26,7 @@ class CustomersRepository extends Repository
         int $page = 1,
         #[ArrayShape(['customer_number' => 'string', 'name' => 'string'])]
         array $params = []
-    ): CustomerList
-    {
+    ): CustomerList {
         return $this->client->getDto('api/customers', CustomerList::class, array_merge($params, [
                 'count' => $perPage,
                 'page' => $page,

@@ -23,8 +23,7 @@ class SampleOrdersRepository extends Repository
         int $page = 1,
         #[ArrayShape(['shippable_items' => 'string[]', 'start_date' => 'string', 'end_date' => 'string'])]
         array $params = []
-    ): SampleOrderList
-    {
+    ): SampleOrderList {
         return $this->client->getDto('api/sample-orders', SampleOrderList::class, array_merge($params, [
             'count' => $perPage,
             'page' => $page,

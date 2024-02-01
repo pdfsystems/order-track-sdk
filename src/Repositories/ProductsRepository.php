@@ -26,8 +26,7 @@ class ProductsRepository extends Repository
         int $page = 1,
         #[ArrayShape(['item_number' => 'string', 'style_name' => 'string', 'color_name' => 'string', 'discontinued' => 'bool'])]
         array $params = []
-    ): ProductList
-    {
+    ): ProductList {
         return $this->client->getDto('api/products', ProductList::class, array_merge($params, [
                 'count' => $perPage,
                 'page' => $page,
