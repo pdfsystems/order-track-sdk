@@ -12,6 +12,7 @@ use Pdfsystems\OrderTrackSdk\Repositories\ProductsRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\SampleOrdersRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\UsersRepository;
 use Rpungello\SdkClient\SdkClient;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class OrderTrackClient extends SdkClient
 {
@@ -36,6 +37,7 @@ class OrderTrackClient extends SdkClient
     /**
      * @return User
      * @throws GuzzleException
+     * @throws UnknownProperties
      */
     public function getAccount(): User
     {
