@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.5.1 - 2024-02-06
+
+Various fixes
+
 ## 1.5.0 - 2024-01-19
 
 - Load membership info with users
