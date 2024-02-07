@@ -24,7 +24,7 @@ class CustomersRepository extends Repository
     public function search(
         int $perPage = 15,
         int $page = 1,
-        #[ArrayShape(['customer_number' => 'string', 'name' => 'string', 'email' => 'string', 'phone' => 'string'])]
+        #[ArrayShape(['customer_number' => 'string', 'customer_number_partial' => 'string', 'name' => 'string', 'email' => 'string', 'phone' => 'string'])]
         array $params = []
     ): CustomerList {
         return $this->client->getDto('api/customers', CustomerList::class, array_merge($params, [
