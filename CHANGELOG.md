@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.6.0 - 2024-02-28
+
+Add order PDFs
+
 ## 1.5.1 - 2024-02-06
 
 Various fixes
