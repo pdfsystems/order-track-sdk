@@ -49,4 +49,28 @@ class OrdersRepository extends Repository
             throw new NotFoundException("Order with order number $orderNumber not found");
         }
     }
+
+    /**
+     * @param Order $order
+     * @param string $path
+     * @return void
+     * @throws GuzzleException
+     */
+    public function downloadPdf(Order $order, string $path): void
+    {
+        $response = $this->client->get("/api/orders/$order->id/print");
+        file_put_contents($path, $response->getBody()->getContents());
+    }
+
+    /**
+     * @param string $orderNumber
+     * @param string $path
+     * @return void
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function downloadPdfForOrderNumber(string $orderNumber, string $path): void
+    {
+        $this->downloadPdf($this->findByOrderNumber($orderNumber), $path);
+    }
 }
