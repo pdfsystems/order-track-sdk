@@ -32,7 +32,7 @@ class OrderTrackClient extends SdkClient
     {
         try {
             return InstalledVersions::getVersion('pdfsystems/order-track-sdk');
-        } catch (OutOfBoundsException $e) {
+        } catch (OutOfBoundsException) {
             return InstalledVersions::getRootPackage()['version'];
         }
     }
