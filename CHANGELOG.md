@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.7.2 - 2024-03-26
+
+Fix package name
+
 ## 1.7.1 - 2024-03-26
 
 Use installed package version
