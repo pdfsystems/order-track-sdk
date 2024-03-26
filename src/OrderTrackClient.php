@@ -5,7 +5,6 @@ namespace Pdfsystems\OrderTrackSdk;
 use Composer\InstalledVersions;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
-use OutOfBoundsException;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
 use Pdfsystems\OrderTrackSdk\Repositories\CompaniesRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\CustomersRepository;
