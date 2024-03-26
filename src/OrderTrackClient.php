@@ -2,6 +2,7 @@
 
 namespace Pdfsystems\OrderTrackSdk;
 
+use Composer\InstalledVersions;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
@@ -18,14 +19,23 @@ class OrderTrackClient extends SdkClient
 {
     public function __construct(public string $authToken, public ?int $teamId = null, string $baseUri = 'https://order-track.com', HandlerStack $handler = null)
     {
-        parent::__construct($baseUri, $handler);
+        parent::__construct($baseUri, $handler, static::getUserAgent());
+    }
+
+    private static function getUserAgent(): string
+    {
+        return 'Order-Track SDK/' . static::getVersion();
+    }
+
+    private static function getVersion(): string
+    {
+        return InstalledVersions::getRootPackage()['version'];
     }
 
     protected function getGuzzleClientConfig(): array
     {
         $config = parent::getGuzzleClientConfig();
         $config['headers']['authorization'] = "Bearer $this->authToken";
-        $config['headers']['accept'] = 'application/json';
 
         if (! empty($this->teamId)) {
             $config['headers']['x-team-id'] = $this->teamId;
