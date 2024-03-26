@@ -34,6 +34,19 @@ class ProductsRepository extends Repository
     }
 
     /**
+     * Loads a product by its primary key
+     *
+     * @param int $id
+     * @return Product
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function find(int $id): Product
+    {
+        return $this->client->getDto("api/products/$id", Product::class);
+    }
+
+    /**
      * Loads a distributor's product by its item number
      *
      * @param string $itemNumber
@@ -59,14 +72,19 @@ class ProductsRepository extends Repository
     /**
      * Calculates shipping charges for a given product
      *
-     * @param Product $product
+     * @param Product|int $product
      * @param string $postalCode
      * @param int $quantity
      * @return array
      * @throws GuzzleException
+     * @throws UnknownProperties
      */
-    public function calculateShipping(Product $product, string $postalCode, int $quantity = 1): array
+    public function calculateShipping(Product|int $product, string $postalCode, int $quantity = 1): array
     {
+        if (is_int($product)) {
+            $product = $this->find($product);
+        }
+
         $response = [];
         $otResponse = $this->client->getJson('/api/products/' . $product->id . '/shipping', [
             'quantity' => $quantity,

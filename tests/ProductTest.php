@@ -50,6 +50,89 @@ it('can search for products', function () {
         ->and($products->data[0]->color_name)->toBe('Red');
 });
 
+it('can calculate shipping', function () {
+    $data = [
+        [
+            'serviceName' => 'Ground',
+            'components' => [
+                [
+                    'type' => 'base',
+                    'amount' => 10,
+                ],
+            ],
+            'rate' => 10.00,
+        ],
+        [
+            'serviceName' => 'Express',
+            'components' => [
+                [
+                    'type' => 'base',
+                    'amount' => 20,
+                ],
+            ],
+            'rate' => 20.00,
+        ],
+    ];
+    $product = new Product([
+        'id' => 1,
+        'item_number' => '1000-01',
+        'style_name' => 'Test Product',
+        'color_name' => 'Red',
+    ]);
+
+    $mock = new MockHandler([
+        new Response(200, ['content-type' => 'application/json'], json_encode($data)),
+    ]);
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $shipping = $client->products()->calculateShipping($product, '12345');
+    expect($shipping)->toBeArray()
+        ->and($shipping)->toHaveCount(2)
+        ->and(array_keys($shipping))->toBe(['Ground', 'Express'])
+        ->and(array_values($shipping))->toBe([10, 20]);
+});
+
+it('can calculate shipping from IDs', function () {
+    $productData = [
+        'id' => 1,
+        'item_number' => '1000-01',
+        'style_name' => 'Test Product',
+        'color_name' => 'Red',
+    ];
+    $shippingData = [
+        [
+            'serviceName' => 'Ground',
+            'components' => [
+                [
+                    'type' => 'base',
+                    'amount' => 10,
+                ],
+            ],
+            'rate' => 10.00,
+        ],
+        [
+            'serviceName' => 'Express',
+            'components' => [
+                [
+                    'type' => 'base',
+                    'amount' => 20,
+                ],
+            ],
+            'rate' => 20.00,
+        ],
+    ];
+
+    $mock = new MockHandler([
+        new Response(200, ['content-type' => 'application/json'], json_encode($productData)),
+        new Response(200, ['content-type' => 'application/json'], json_encode($shippingData)),
+    ]);
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $shipping = $client->products()->calculateShipping(1, '12345');
+    expect($shipping)->toBeArray()
+        ->and($shipping)->toHaveCount(2)
+        ->and(array_keys($shipping))->toBe(['Ground', 'Express'])
+        ->and(array_values($shipping))->toBe([10, 20]);
+});
+
 it('can load individual products by item number', function () {
     $data = [
         'current_page' => 1,
