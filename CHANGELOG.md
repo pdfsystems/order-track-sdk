@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.7.1 - 2024-03-26
+
+Use installed package version
+
 ## 1.7.0 - 2024-03-26
 
 Proper user agents
