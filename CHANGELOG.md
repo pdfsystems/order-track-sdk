@@ -2,6 +2,11 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.9.0 - 2024-08-15
+
+- Load holds with orders
+- Load tracking numbers with orders
+
 ## 1.8.0 - 2024-08-15
 
 - Added product inventory
