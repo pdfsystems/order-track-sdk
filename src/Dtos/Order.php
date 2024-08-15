@@ -63,4 +63,10 @@ class Order extends DataTransferObject
     /** @var OrderLine[] */
     #[CastWith(ArrayCaster::class, itemType: OrderLine::class)]
     public array $lines = [];
+    /** @var TrackingNumber[] */
+    #[CastWith(ArrayCaster::class, itemType: TrackingNumber::class)]
+    public array $tracking_numbers = [];
+    /** @var OrderHold[] */
+    #[CastWith(ArrayCaster::class, itemType: OrderHold::class)]
+    public array $holds = [];
 }
