@@ -191,3 +191,58 @@ it('throws an exception loading nonexisting item number', function () {
     $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
     $client->products()->findByItemNumber('1000-01F');
 })->throws(NotFoundException::class);
+
+it('can load product inventory', function () {
+    $data = [
+        [
+            'distributor_id' => 14,
+            'item_number' => "1000/01",
+            'lot_number' => "L1234",
+            'piece_number' => "A",
+            'date_received' => "2024-01-01",
+            'warehouse' => "WHS",
+            'warehouse_location' => "A-100-1",
+            'comment' => "This is a test piece",
+            'quantity_on_hand' => 40,
+            'quantity_available' => 20,
+        ],
+    ];
+    $mock = new MockHandler([
+        new Response(200, ['content-type' => 'application/json'], json_encode($data)),
+    ]);
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $inventory = $client->products()->getInventory(
+        new Product([
+            'id' => 1,
+            'item_number' => '1000/01',
+            'style_name' => 'Kensington',
+        ])
+    );
+    expect($inventory)->toBeArray()
+        ->and($inventory)->toHaveCount(1);
+});
+
+it('can load purchase orders', function () {
+    $data = [
+        [
+            'distributor_id' => 14,
+            'item_number' => "1000/01",
+            'purchase_order_number' => '123456',
+            'quantity_ordered' => 40,
+            'quantity_available' => 20,
+        ],
+    ];
+    $mock = new MockHandler([
+        new Response(200, ['content-type' => 'application/json'], json_encode($data)),
+    ]);
+    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $inventory = $client->products()->getPurchaseOrders(
+        new Product([
+            'id' => 1,
+            'item_number' => '1000/01',
+            'style_name' => 'Kensington',
+        ])
+    );
+    expect($inventory)->toBeArray()
+        ->and($inventory)->toHaveCount(1);
+});

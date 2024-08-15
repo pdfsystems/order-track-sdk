@@ -4,8 +4,10 @@ namespace Pdfsystems\OrderTrackSdk\Repositories;
 
 use GuzzleHttp\Exception\GuzzleException;
 use JetBrains\PhpStorm\ArrayShape;
+use Pdfsystems\OrderTrackSdk\Dtos\Inventory;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\ProductList;
 use Pdfsystems\OrderTrackSdk\Dtos\Product;
+use Pdfsystems\OrderTrackSdk\Dtos\PurchaseOrder;
 use Pdfsystems\OrderTrackSdk\Exceptions\NotFoundException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -96,5 +98,31 @@ class ProductsRepository extends Repository
         }
 
         return $response;
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function getInventory(Product|int $product): array
+    {
+        if ($product instanceof Product) {
+            $product = $product->id;
+        }
+
+        return $this->client->getDtoArray("/api/products/$product/inventory", Inventory::class);
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function getPurchaseOrders(Product|int $product): array
+    {
+        if ($product instanceof Product) {
+            $product = $product->id;
+        }
+
+        return $this->client->getDtoArray("/api/products/$product/purchase-orders", PurchaseOrder::class);
     }
 }
