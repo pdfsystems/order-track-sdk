@@ -2,6 +2,11 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.8.0 - 2024-08-15
+
+- Added product inventory
+- Added product purchase orders
+
 ## 1.7.2 - 2024-03-26
 
 Fix package name
