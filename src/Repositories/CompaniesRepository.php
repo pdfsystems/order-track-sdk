@@ -13,6 +13,16 @@ class CompaniesRepository extends Repository
         return $this->client->postDto('api/teams', $company);
     }
 
+    public function find(int $id): Company
+    {
+        return $this->client->getDto("api/teams/$id", Company::class);
+    }
+
+    public function update(Company $company): Company
+    {
+        return $this->client->putDto("api/teams/$company->id", $company);
+    }
+
     /**
      * @throws GuzzleException
      */

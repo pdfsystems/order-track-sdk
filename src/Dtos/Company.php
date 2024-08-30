@@ -22,6 +22,7 @@ class Company extends DataTransferObject
     public ?int $prefix;
     public ?int $next_sample_order_number;
     public ?string $shipping_class;
+    public ?int $website_rep_id;
     #[CastWith(ArrayCaster::class, itemType: Service::class)]
     public array $services = [];
 }
