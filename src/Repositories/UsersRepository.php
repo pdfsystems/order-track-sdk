@@ -4,6 +4,7 @@ namespace Pdfsystems\OrderTrackSdk\Repositories;
 
 use DateTimeInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use Pdfsystems\OrderTrackSdk\Dtos\Company;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -25,5 +26,25 @@ class UsersRepository extends Repository
         }
 
         return $this->client->getDtoArray('api/users', User::class, $query);
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function create(Company|int $company, User $user): User
+    {
+        $userData = array_merge(
+            ['team_id' => is_int($company) ? $company : $company->id],
+            $user->toArray()
+        );
+        $userData = array_filter($userData);
+
+        return new User(
+            $this->client->postJson(
+                "api/users",
+                $userData
+            )
+        );
     }
 }
