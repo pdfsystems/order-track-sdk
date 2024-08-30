@@ -6,6 +6,7 @@ use DateTimeInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\OrderTrackSdk\Dtos\Company;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
+use Pdfsystems\OrderTrackSdk\Exceptions\NotFoundException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class UsersRepository extends Repository
@@ -46,5 +47,22 @@ class UsersRepository extends Repository
                 $userData
             )
         );
+    }
+
+    /**
+     * @param string $email
+     * @return User
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function findByEmail(string $email): User
+    {
+        $results = $this->client->getDtoArray('api/users', User::class, compact('email'));
+
+        if (empty($results)) {
+            throw new NotFoundException("User with email $email not found");
+        }
+
+        return array_pop($results);
     }
 }
