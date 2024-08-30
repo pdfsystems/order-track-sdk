@@ -2,6 +2,11 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.10.1 - 2024-08-30
+
+- Added ability to get and update companies (teams)
+- Added website_rep_id
+
 ## 1.9.0 - 2024-08-15
 
 - Load holds with orders
