@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.11.0 - 2024-08-30
+
+Added ability to create users
+
 ## 1.10.1 - 2024-08-30
 
 - Added ability to get and update companies (teams)
