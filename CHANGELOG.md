@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.12.0 - 2024-08-30
+
+Added option to search for users by email
+
 ## 1.11.0 - 2024-08-30
 
 Added ability to create users
