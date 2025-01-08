@@ -93,7 +93,7 @@ class ProductsRepository extends Repository
             'postal_code' => $postalCode,
         ]);
 
-        foreach($otResponse as $rate) {
+        foreach ($otResponse as $rate) {
             $response[$rate['serviceName']] = $rate['rate'];
         }
 
