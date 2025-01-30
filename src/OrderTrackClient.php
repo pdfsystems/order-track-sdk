@@ -17,7 +17,7 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class OrderTrackClient extends SdkClient
 {
-    public function __construct(public string $authToken, public ?int $teamId = null, string $baseUri = 'https://order-track.com', HandlerStack $handler = null)
+    public function __construct(private string $authToken, private ?int $teamId = null, string $baseUri = 'https://order-track.com', HandlerStack $handler = null)
     {
         parent::__construct($baseUri, $handler, static::getUserAgent());
     }
