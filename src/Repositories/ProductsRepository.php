@@ -4,6 +4,7 @@ namespace Pdfsystems\OrderTrackSdk\Repositories;
 
 use GuzzleHttp\Exception\GuzzleException;
 use JetBrains\PhpStorm\ArrayShape;
+use Pdfsystems\OrderTrackSdk\Dtos\Company;
 use Pdfsystems\OrderTrackSdk\Dtos\Inventory;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\ProductList;
 use Pdfsystems\OrderTrackSdk\Dtos\Product;
@@ -124,5 +125,16 @@ class ProductsRepository extends Repository
         }
 
         return $this->client->getDtoArray("/api/products/$product/purchase-orders", PurchaseOrder::class);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function import(Company|int $company, array $products): ?array
+    {
+        return $this->client->putJson('api/admin/products', [
+            'team_id' => $company instanceof Company ? $company->id : $company,
+            'data' => $products,
+        ]);
     }
 }

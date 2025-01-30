@@ -4,6 +4,7 @@ namespace Pdfsystems\OrderTrackSdk\Repositories;
 
 use GuzzleHttp\Exception\GuzzleException;
 use JetBrains\PhpStorm\ArrayShape;
+use Pdfsystems\OrderTrackSdk\Dtos\Company;
 use Pdfsystems\OrderTrackSdk\Dtos\Customer;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\CustomerList;
 use Pdfsystems\OrderTrackSdk\Exceptions\NotFoundException;
@@ -52,5 +53,16 @@ class CustomersRepository extends Repository
         } else {
             throw new NotFoundException("Customer with customer number $customerNumber not found");
         }
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function import(Company|int $company, array $customers): ?array
+    {
+        return $this->client->putJson('api/admin/customers', [
+            'team_id' => $company instanceof Company ? $company->id : $company,
+            'data' => $customers,
+        ]);
     }
 }
