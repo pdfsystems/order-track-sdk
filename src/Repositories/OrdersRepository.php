@@ -4,6 +4,7 @@ namespace Pdfsystems\OrderTrackSdk\Repositories;
 
 use GuzzleHttp\Exception\GuzzleException;
 use JetBrains\PhpStorm\ArrayShape;
+use Pdfsystems\OrderTrackSdk\Dtos\Company;
 use Pdfsystems\OrderTrackSdk\Dtos\Order;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\OrderList;
 use Pdfsystems\OrderTrackSdk\Exceptions\NotFoundException;
@@ -72,5 +73,16 @@ class OrdersRepository extends Repository
     public function downloadPdfForOrderNumber(string $orderNumber, string $path): void
     {
         $this->downloadPdf($this->findByOrderNumber($orderNumber), $path);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function import(Company|int $company, array $orders): ?array
+    {
+        return $this->client->putJson('api/admin/orders', [
+            'team_id' => $company instanceof Company ? $company->id : $company,
+            'data' => $orders,
+        ]);
     }
 }
