@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.13.0 - 2025-01-31
+
+Added admin import functions
+
 ## 1.12.0 - 2024-08-30
 
 Added option to search for users by email
