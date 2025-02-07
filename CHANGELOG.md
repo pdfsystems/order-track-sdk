@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.14.0 - 2025-02-07
+
+Added boolean flag for discontinued products
+
 ## 1.13.0 - 2025-01-31
 
 Added admin import functions
