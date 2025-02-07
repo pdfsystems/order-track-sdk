@@ -37,6 +37,7 @@ class Product extends DataTransferObject
     public ?string $item_comment;
     public ?string $web_comment;
     public ?string $image_url;
+    public bool $discontinued = false;
     public ?string $discontinued_reason;
     public ?DateTimeImmutable $discontinued_date;
 }
