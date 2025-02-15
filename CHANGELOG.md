@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.15.0 - 2025-02-15
+
+Updated default URL to www.order-track.com
+
 ## 1.14.0 - 2025-02-07
 
 Added boolean flag for discontinued products
