@@ -1,12 +1,13 @@
 {
-    "name": "pdf-systems-inc/order-track-sdk",
+    "name": "pdfsystems/order-track-sdk",
     "version": "1.15.1",
     "description": "SDK for Order-Track v4 API",
     "keywords": [
         "pdf-systems-inc",
-        "order-track-sdk"
+        "order-track-sdk",
+        "order-track"
     ],
-    "homepage": "https://github.com/pdf-systems-inc/order-track-sdk",
+    "homepage": "https://github.com/pdfsystems/order-track-sdk",
     "license": "MIT",
     "authors": [
         {
