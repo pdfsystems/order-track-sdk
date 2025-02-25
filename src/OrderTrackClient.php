@@ -29,7 +29,7 @@ class OrderTrackClient extends SdkClient
 
     private static function getVersion(): string
     {
-        return InstalledVersions::getVersion('pdf-systems-inc/order-track-sdk');
+        return InstalledVersions::getVersion('pdfsystems/order-track-sdk');
     }
 
     protected function getGuzzleClientConfig(): array
