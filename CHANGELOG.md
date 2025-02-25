@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 1.15.2 - 2025-02-25
+
+- Fixes for package name
+
 ## 1.15.1 - 2025-02-25
 
 - Use strings for sample order numbers
