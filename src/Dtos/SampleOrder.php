@@ -10,7 +10,7 @@ use Spatie\DataTransferObject\Casters\ArrayCaster;
 class SampleOrder extends DataTransferObject
 {
     public ?int $id;
-    public ?int $order_number;
+    public ?string $order_number;
     public ?DateTimeImmutable $date_ordered;
     public ?string $web_order_number;
     public ?string $web_order_id;

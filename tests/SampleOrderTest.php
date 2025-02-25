@@ -19,7 +19,7 @@ it('can search for sample orders', function () {
         'data' => [
             [
                 'id' => 1,
-                'order_number' => 123456,
+                'order_number' => '123456',
                 'items' => [
                 ],
                 'sample_usage_type_id' => 1,
