@@ -5,6 +5,7 @@ namespace Pdfsystems\OrderTrackSdk;
 use Composer\InstalledVersions;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
+use OutOfBoundsException;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
 use Pdfsystems\OrderTrackSdk\Repositories\CompaniesRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\CustomersRepository;
@@ -29,7 +30,11 @@ class OrderTrackClient extends SdkClient
 
     private static function getVersion(): string
     {
-        return InstalledVersions::getVersion('pdfsystems/order-track-sdk');
+        try {
+            return InstalledVersions::getVersion('pdfsystems/order-track-sdk');
+        } catch (OutOfBoundsException) {
+            return 'dev';
+        }
     }
 
     protected function getGuzzleClientConfig(): array
