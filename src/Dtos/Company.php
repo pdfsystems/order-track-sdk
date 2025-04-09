@@ -24,6 +24,11 @@ class Company extends DataTransferObject
     public ?string $shipping_class;
     public ?int $website_rep_id;
     public ?int $website_user_id;
+    public ?string $image_url;
+    public ?string $barcode_pattern_products;
+    public bool $display_piece_comments = false;
+    public bool $display_discontinued_info = false;
+    public bool $sampling_sort_description = false;
     #[CastWith(ArrayCaster::class, itemType: Service::class)]
     public array $services = [];
 }
