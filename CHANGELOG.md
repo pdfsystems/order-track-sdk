@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 2.0.0-beta.2 - 2025-10-13
+
+Add composer repo action
+
 ## 2.0.0-beta.1 - 2025-10-13
 
 Upgrade to 2.0.0 beta SDK for Laravel HTTP client compatibility
