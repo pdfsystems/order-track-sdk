@@ -3,6 +3,7 @@
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Pdfsystems\OrderTrackSdk\Drivers\GuzzleDriver;
 use Pdfsystems\OrderTrackSdk\Dtos\Order;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\OrderList;
 use Pdfsystems\OrderTrackSdk\Enums\OrderStatus;
@@ -12,7 +13,7 @@ use Pdfsystems\OrderTrackSdk\OrderTrackClient;
 use Pdfsystems\OrderTrackSdk\Repositories\OrdersRepository;
 
 it('can create order repositories', function () {
-    $client = new OrderTrackClient('test');
+    $client = new OrderTrackClient(new GuzzleDriver('test'));
     expect($client->orders())->toBeInstanceOf(OrdersRepository::class);
 });
 
@@ -45,7 +46,7 @@ it('can search for orders', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $products = $client->orders()->search();
     expect($products)->toBeInstanceOf(OrderList::class)
         ->and($products->data)->toHaveCount(1);
@@ -80,7 +81,7 @@ it('can load individual orders by order number', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $order = $client->orders()->findByOrderNumber('123456');
     expect($order)->toBeInstanceOf(Order::class)
         ->and($order->id)->toBe(1)
@@ -110,6 +111,6 @@ it('throws an exception loading nonexisting order number', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $client->orders()->findByOrderNumber('FAKE');
 })->throws(NotFoundException::class);

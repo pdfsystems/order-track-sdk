@@ -3,6 +3,7 @@
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Pdfsystems\OrderTrackSdk\Drivers\GuzzleDriver;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
 use Pdfsystems\OrderTrackSdk\OrderTrackClient;
 
@@ -19,7 +20,7 @@ it('can load user accounts', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $account = $client->getAccount();
     expect($account)->toBeInstanceOf(User::class)
         ->and($account->id)->toBe(1)
@@ -44,7 +45,7 @@ it('can list user accounts', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $users = $client->users()->list();
     expect($users)->toBeArray()
         ->and($users)->toHaveCount(1)

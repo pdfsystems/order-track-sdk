@@ -3,6 +3,7 @@
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Pdfsystems\OrderTrackSdk\Drivers\GuzzleDriver;
 use Pdfsystems\OrderTrackSdk\Dtos\Pagination\ProductList;
 use Pdfsystems\OrderTrackSdk\Dtos\Product;
 use Pdfsystems\OrderTrackSdk\Exceptions\NotFoundException;
@@ -10,7 +11,7 @@ use Pdfsystems\OrderTrackSdk\OrderTrackClient;
 use Pdfsystems\OrderTrackSdk\Repositories\ProductsRepository;
 
 it('can create product repositories', function () {
-    $client = new OrderTrackClient('test');
+    $client = new OrderTrackClient(new GuzzleDriver('test'));
     expect($client->products())->toBeInstanceOf(ProductsRepository::class);
 });
 
@@ -41,7 +42,7 @@ it('can search for products', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $products = $client->products()->search();
     expect($products)->toBeInstanceOf(ProductList::class)
         ->and($products->data)->toHaveCount(1)
@@ -83,7 +84,7 @@ it('can calculate shipping', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $shipping = $client->products()->calculateShipping($product, '12345');
     expect($shipping)->toBeArray()
         ->and($shipping)->toHaveCount(2)
@@ -125,7 +126,7 @@ it('can calculate shipping from IDs', function () {
         new Response(200, ['content-type' => 'application/json'], json_encode($productData)),
         new Response(200, ['content-type' => 'application/json'], json_encode($shippingData)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $shipping = $client->products()->calculateShipping(1, '12345');
     expect($shipping)->toBeArray()
         ->and($shipping)->toHaveCount(2)
@@ -160,7 +161,7 @@ it('can load individual products by item number', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $product = $client->products()->findByItemNumber('1000-01');
     expect($product)->toBeInstanceOf(Product::class)
         ->and($product->id)->toBe(1)
@@ -188,7 +189,7 @@ it('throws an exception loading nonexisting item number', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $client->products()->findByItemNumber('1000-01F');
 })->throws(NotFoundException::class);
 
@@ -210,7 +211,7 @@ it('can load product inventory', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $inventory = $client->products()->getInventory(
         new Product([
             'id' => 1,
@@ -235,7 +236,7 @@ it('can load purchase orders', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $inventory = $client->products()->getPurchaseOrders(
         new Product([
             'id' => 1,

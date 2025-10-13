@@ -3,6 +3,7 @@
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Pdfsystems\OrderTrackSdk\Drivers\GuzzleDriver;
 use Pdfsystems\OrderTrackSdk\Dtos\Company;
 use Pdfsystems\OrderTrackSdk\OrderTrackClient;
 
@@ -13,7 +14,7 @@ it('can create companies', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $company = $client->companies()->create(new Company($data));
     expect($company)->toBeInstanceOf(Company::class);
 });
@@ -28,7 +29,7 @@ it('can create companies with services', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $company = $client->companies()->create(new Company($data));
     expect($company)->toBeInstanceOf(Company::class)
         ->and($company->name)->toBe('Test Company')
@@ -48,7 +49,7 @@ it('can load representation info', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode($data)),
     ]);
-    $client = new OrderTrackClient('test', handler: HandlerStack::create($mock));
+    $client = new OrderTrackClient(new GuzzleDriver('test', handler: HandlerStack::create($mock)));
     $representation = $client->companies()->representation();
     expect($representation)->toBeArray()
         ->and($representation)->toHaveCount(1)
