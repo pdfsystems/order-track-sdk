@@ -2,6 +2,10 @@
 
 All notable changes to `order-track-sdk` will be documented in this file.
 
+## 2.0.0-beta.1 - 2025-10-13
+
+Upgrade to 2.0.0 beta SDK for Laravel HTTP client compatibility
+
 ## 1.15.3 - 2025-04-09
 
 Added more fields for companies
