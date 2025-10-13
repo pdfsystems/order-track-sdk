@@ -2,10 +2,6 @@
 
 namespace Pdfsystems\OrderTrackSdk;
 
-use Composer\InstalledVersions;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\HandlerStack;
-use OutOfBoundsException;
 use Pdfsystems\OrderTrackSdk\Dtos\User;
 use Pdfsystems\OrderTrackSdk\Repositories\CompaniesRepository;
 use Pdfsystems\OrderTrackSdk\Repositories\CustomersRepository;
@@ -18,40 +14,8 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class OrderTrackClient extends SdkClient
 {
-    public function __construct(private string $authToken, private ?int $teamId = null, string $baseUri = 'https://www.order-track.com', HandlerStack $handler = null)
-    {
-        parent::__construct($baseUri, $handler, static::getUserAgent());
-    }
-
-    private static function getUserAgent(): string
-    {
-        return 'Order-Track SDK/' . static::getVersion();
-    }
-
-    private static function getVersion(): string
-    {
-        try {
-            return InstalledVersions::getVersion('pdfsystems/order-track-sdk');
-        } catch (OutOfBoundsException) {
-            return 'dev';
-        }
-    }
-
-    protected function getGuzzleClientConfig(): array
-    {
-        $config = parent::getGuzzleClientConfig();
-        $config['headers']['authorization'] = "Bearer $this->authToken";
-
-        if (! empty($this->teamId)) {
-            $config['headers']['x-team-id'] = $this->teamId;
-        }
-
-        return $config;
-    }
-
     /**
      * @return User
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function getAccount(): User
