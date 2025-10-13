@@ -1,6 +1,5 @@
 {
     "name": "pdfsystems/order-track-sdk",
-    "version": "1.15.3",
     "description": "SDK for Order-Track v4 API",
     "keywords": [
         "pdf-systems-inc",
@@ -18,7 +17,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "rpungello/sdk-client": "dev-main"
+        "rpungello/sdk-client": "^2.0"
     },
     "require-dev": {
         "pestphp/pest": "^1.20",
